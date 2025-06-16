@@ -21,35 +21,6 @@ export const Body: React.FC<Props> = ({
 }) => {
   return (
     <section className="todoapp__main" data-cy="TodoList">
-      {tempTodo && (
-        <div data-cy="Todo" className="todo" key={0}>
-          <div data-cy="TodoLoader" className="modal overlay is-active">
-            <div className="modal-background has-background-white-ter" />
-            <div className="loader" />
-          </div>
-          <label className="todo__status-label">
-            <input
-              aria-label="TodoStatus"
-              type="checkbox"
-              className="todo__status"
-              checked={false}
-              disabled
-            />
-          </label>
-          <span data-cy="TodoTitle" className="todo__title">
-            {tempTodo.title}
-          </span>
-          <button
-            type="button"
-            className="todo__remove"
-            data-cy="TodoDelete"
-            disabled
-          >
-            ×
-          </button>
-        </div>
-      )}
-
       {todos.map(todo => (
         <div
           data-cy="Todo"
@@ -96,6 +67,35 @@ export const Body: React.FC<Props> = ({
           </div>
         </div>
       ))}
+
+      {tempTodo && (
+        <div data-cy="Todo" className="todo" key={0}>
+          <div data-cy="TodoLoader" className="modal overlay is-active">
+            <div className="modal-background has-background-white-ter" />
+            <div className="loader" />
+          </div>
+          <label className="todo__status-label">
+            <input
+              aria-label="TodoStatus"
+              type="checkbox"
+              className="todo__status"
+              checked={false}
+              disabled
+            />
+          </label>
+          <span data-cy="TodoTitle" className="todo__title">
+            {tempTodo.title}
+          </span>
+          <button
+            type="button"
+            className="todo__remove"
+            data-cy="TodoDelete"
+            disabled
+          >
+            ×
+          </button>
+        </div>
+      )}
     </section>
   );
 };

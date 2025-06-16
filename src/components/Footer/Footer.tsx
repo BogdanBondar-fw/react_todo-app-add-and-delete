@@ -9,6 +9,7 @@ type Props = {
   setFilter: (filter: Filter) => void;
   todos: Todo[];
   isLoading: boolean;
+  removeCompleted: () => void;
 };
 
 // should i create a separate file for filters?
@@ -24,6 +25,7 @@ export const Footer: React.FC<Props> = ({
   setFilter,
   todos,
   isLoading,
+  removeCompleted,
 }) => {
   return (
     <footer className="todoapp__footer" data-cy="Footer">
@@ -50,17 +52,15 @@ export const Footer: React.FC<Props> = ({
         ))}
       </nav>
 
-      {todos.some(todo => todo.completed) && (
-        <button
-          data-cy="ClearCompletedButton"
-          type="button"
-          className="clear-completed"
-          // onClick={handleClearCompleted}
-          disabled={isLoading}
-        >
-          Clear completed
-        </button>
-      )}
+      <button
+        data-cy="ClearCompletedButton"
+        type="button"
+        className="clear-completed"
+        onClick={removeCompleted}
+        disabled={isLoading || !todos.some(todo => todo.completed)}
+      >
+        Clear completed
+      </button>
     </footer>
   );
 };

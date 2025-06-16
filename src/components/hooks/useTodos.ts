@@ -51,7 +51,7 @@ export const useTodos = () => {
     try {
       const newTodo = await addTodo(trimmedTitle);
 
-      setTodos(prev => [newTodo, ...prev]);
+      setTodos(prev => [...prev, newTodo]);
       setTempTodo(null);
 
       return true;
@@ -103,6 +103,29 @@ export const useTodos = () => {
     }
   };
 
+  const removeCompleted = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    const completedTodos = todos.filter(todo => todo.completed);
+
+    for (const todo of completedTodos) {
+      setDeleteId(prev => [...prev, todo.id]);
+
+      try {
+        await deleteTodo(todo.id);
+        setTodos(prev => prev.filter(t => t.id !== todo.id));
+      } catch {
+        setError(TodoTypeErrors.UnableToDeleteTodo);
+        setShowError(true);
+      } finally {
+        setDeleteId(prev => prev.filter(id => id !== todo.id));
+      }
+    }
+
+    setIsLoading(false);
+  };
+
   const hideError = () => {
     setShowError(false);
     setError(null);
@@ -120,5 +143,6 @@ export const useTodos = () => {
     hideError,
     tempTodo,
     deleteId,
+    removeCompleted,
   };
 };

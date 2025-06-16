@@ -21,6 +21,7 @@ export const App: React.FC = () => {
     hideError,
     tempTodo,
     deleteId,
+    removeCompleted,
   } = useTodos();
 
   const [filter, setFilter] = useState<Filter>('all');
@@ -58,6 +59,7 @@ export const App: React.FC = () => {
             setFilter={setFilter}
             todos={todos}
             isLoading={isLoading}
+            removeCompleted={removeCompleted}
           />
         )}
       </div>
